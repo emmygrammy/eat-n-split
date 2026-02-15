@@ -3,7 +3,8 @@ import Button from './Button'
 
 import { useState } from 'react'
 
-function Form({ name, setName, image, setImage }) {
+
+function Form({ name, setName, image, setImage, onAddFriend }) {
     // Generate a unique ID for the new friend
    const id = crypto.randomUUID();
    // Create a new friend object with the generated ID
@@ -17,10 +18,11 @@ function Form({ name, setName, image, setImage }) {
             image: `${image}${id}`,
             balance: 0,
         };
-          console.log(newFriend);
-        
+        // Add the new friend to the friends state
+        onAddFriend(newFriend);
+        // Clear the input fields
         setName('');
-        setImage('"https://i.pravatar.cc/48');
+        setImage('https://i.pravatar.cc/48');
     }
   return (
     <div>
@@ -30,7 +32,7 @@ function Form({ name, setName, image, setImage }) {
             
             <label>👨🏿‍🤝‍👨🏼Image URL</label>
             <input type="text" placeholder="image URL" value={image} onChange={(e) => setImage(e.target.value)} />
-
+             <Button type="submit" onClick={handleSubmit} >Add friend</Button>
         </form>
        
     </div>

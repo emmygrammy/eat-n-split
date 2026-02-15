@@ -3,7 +3,7 @@ import Button from './Button'
 
 
 
-const initialFriends = [
+export const initialFriends = [
   {
     id: 118836,
     name: "Clark",
@@ -25,7 +25,8 @@ const initialFriends = [
 ];
 
 
-function Friend({ friend }) {
+function Friend({ friend, friends, setFriends }) {
+
   return (
     <li>
       <img src={friend.image} alt={friend.name} />
@@ -38,11 +39,11 @@ function Friend({ friend }) {
   );
 }
 
-function FriendsList() {
+function FriendsList({ friends, setFriends }) {
   return (
     <ul>
-      {initialFriends.map((friend) => (
-        <Friend key={friend.id} friend={friend} />
+      {friends.map((friend) => (
+        <Friend key={friend.id} friend={friend} friends={friends} setFriends={setFriends} />
       ))}
     </ul>
   );
