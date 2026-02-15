@@ -25,25 +25,26 @@ export const initialFriends = [
 ];
 
 
-function Friend({ friend, friends, setFriends }) {
-
+//Add conditional styling to highlight the selected friend in the list
+function Friend({ friend, friends, setFriends, onSelectFriend, selectedFriend }) {
+const isSelected = selectedFriend?.id === friend.id;
   return (
-    <li>
+    <li className={isSelected ? "selected" : ""}>
       <img src={friend.image} alt={friend.name} />
       <h3>{friend.name}</h3>
       {friend.balance < 0 && <p className="red">you owe {Math.abs(friend.balance)} $</p>}
       {friend.balance > 0 && <p className="green">{friend.name} owes you {friend.balance} $</p>}
       {friend.balance === 0 && <p>you and {friend.name} are even</p>}
-      <Button>select</Button>
+      <Button onClick={() => onSelectFriend(friend)}>{isSelected ? 'Close' : 'Select'}</Button>
     </li>
   );
 }
 
-function FriendsList({ friends, setFriends }) {
+function FriendsList({ friends, setFriends, onSelectFriend, selectedFriend  }) {
   return (
     <ul>
       {friends.map((friend) => (
-        <Friend key={friend.id} friend={friend} friends={friends} setFriends={setFriends} />
+        <Friend key={friend.id} friend={friend} friends={friends} setFriends={setFriends} onSelectFriend={onSelectFriend} selectedFriend={selectedFriend} />
       ))}
     </ul>
   );
